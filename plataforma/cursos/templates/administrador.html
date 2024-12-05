@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Administrador</title>
+        <!-- Bootstrap CSS -->
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet"> 
+    </head>
+
+    <body>
+        
+        <div class="container mt-4">
+            <h2 class="mb-4">Administrativo</h2>
+            <div class="row justify-content-center">
+                <div class="col  mb-3">
+                    <a href="{% url 'cadastrar_aluno' %}" class="btn btn-info w-100" role="button">Cadastrar aluno</a>
+                </div>
+            </div>
+            <h2 class="mt-4">Total de alunos ativos</h2>
+            <div class="table-responsive p-2 container mt-4">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Aluno</th>
+                            <th>Nome do curso</th>
+                            <th>Categoria</th>
+                    
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for curso in cursos %}
+                        <tr>
+                            <td>{{ curso.aluno }}</td>
+                            <td>{{ curso.name }}</td>
+                            <td>{{ curso.slug }}</td>  
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <!-- Adicionando Bootstrap JS  -->
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        
+    </body>
+</html>
