@@ -28,11 +28,12 @@ from django.urls import path
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('cadastro/', views.cadastrar_aluno, name="cadastro"),
+    path('cadastrar_aluno/', views.cadastrar_aluno, name="cadastrar_aluno"),
     path('', views.login, name='login'),
     path('main/', views.main, name="main"),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('login/', views.login, name='login'),
+    path('administrador/', views.administrador, name='administrador')
 
 
 ]

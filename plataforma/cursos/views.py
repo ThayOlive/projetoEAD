@@ -19,9 +19,6 @@ def is_in_group_adm(user):
 @user_passes_test(is_in_group_adm)
 def administrador(request):
     cursos = Curso.objects.all()
-    for curso in cursos:
-        curso.aluno = curso.aluno.upper() if curso.aluno else ''
-        curso.name = curso.name.upper() if curso.name else''
     
     context = {
         
@@ -74,7 +71,16 @@ def cadastrar_aluno(request):
 
 @login_required
 def main (request):
-    return render(request, 'main.html')
+     if is_in_group_adm(request.user):
+       return redirect('administrador')
+     
+     else:
+
+        cursos = Curso.objects.filter(aluno = request.user)
+        context = {
+            'cursos': cursos 
+        }
+        return render(request, 'main.html', context)
 
 @require_POST
 def custom_logout(request):

@@ -41,9 +41,7 @@
                     <th>Nome do curso</th>
                     <th>Categoria</th>
                     <th>Descrição</th>
-                   
-
-            
+                    <th>Ações</th>
                 </tr>
             </thead>
             <tbody>
@@ -53,6 +51,7 @@
                     <td>{{ curso.name }}</td>
                     <td>{{ curso.slug }}</td>  
                     <td>{{ curso.short_description }}</td> 
+                    <td><a class="btn btn-info btn-sm" style="width: 60px; margin-bottom: 5px;">Acessar</a></td>
                 </tr>
                 {% endfor %}
             </tbody>
