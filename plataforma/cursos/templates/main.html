@@ -51,7 +51,7 @@
                     <td>{{ curso.name }}</td>
                     <td>{{ curso.slug }}</td>  
                     <td>{{ curso.short_description }}</td> 
-                    <td><a class="btn btn-info btn-sm" style="width: 60px; margin-bottom: 5px;">Acessar</a></td>
+                    <td><a href= "{%url 'acessar'%}" class="btn btn-info btn-sm" style="width: 60px; margin-bottom: 5px;">Acessar</a></td>
                 </tr>
                 {% endfor %}
             </tbody>

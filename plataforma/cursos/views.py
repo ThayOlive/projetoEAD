@@ -5,18 +5,14 @@ from django.contrib.auth.decorators import login_required,  user_passes_test
 from django.contrib.auth import logout
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from django.contrib.auth.models import Group
+
 from django.views.decorators.http import require_POST
 from django.contrib import messages
 from django.http import JsonResponse
 
 from .models import Curso
 
-def is_in_group_adm(user):
-    return user.groups.filter(name='adm').exists()
-
 @login_required
-@user_passes_test(is_in_group_adm)
 def administrador(request):
     cursos = Curso.objects.all()
     
@@ -42,7 +38,6 @@ def login(request):
 
 
 @login_required
-@user_passes_test(is_in_group_adm)
 def cadastrar_aluno(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
@@ -54,11 +49,7 @@ def cadastrar_aluno(request):
             user.first_name = nome_completo
             user.last_name = cod_aluno
             user.save()
-
-            # Adiciona o usuário ao grupo "Alunos"
-            grupo_alunos = Group.objects.get(name='alunos')
-            user.groups.add(grupo_alunos)
-            user.save()
+            
 
             messages.success(request, 'Aluno cadastrado com sucesso e adicionado ao grupo Alunos!')
             
@@ -71,11 +62,7 @@ def cadastrar_aluno(request):
 
 @login_required
 def main (request):
-     if is_in_group_adm(request.user):
-       return redirect('administrador')
-     
-     else:
-
+      
         cursos = Curso.objects.filter(aluno = request.user)
         context = {
             'cursos': cursos 
@@ -87,3 +74,28 @@ def custom_logout(request):
     logout(request)
     return render('login.html')  # Redireciona para a página de login (login.html)
 
+@login_required
+def acessar(request):
+        cursos = Curso.objects.filter(aluno=request.user)
+    # Criar uma lista de dicionários com os valores ajustados
+        cursos_modificados = []
+        for curso in cursos:
+            video_aula_embed = curso.video_aula
+        # Substituir "watch?v=" por "embed/" para vídeos do YouTube
+        if "watch?v=" in video_aula_embed:
+            video_aula_embed = video_aula_embed.replace("watch?v=", "embed/")
+        
+        # Adicionar os dados modificados em uma lista
+        cursos_modificados.append({
+            'name': curso.name,
+            'slug': curso.slug,
+            'short_description': curso.short_description,
+            'long_description': curso.long_description,
+            'pdf': curso.pdf,
+            'video_aula': video_aula_embed
+        })
+
+        context = {
+        'cursos': cursos_modificados  # Enviar a lista modificada ao template
+        }
+        return render(request, 'acessar.html', context)
