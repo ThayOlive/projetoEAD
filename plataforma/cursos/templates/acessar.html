@@ -32,38 +32,44 @@
     </nav>
 
     <div class= "container">
-       {% for curso in cursos %}
+ {% for curso in cursos %}
     <h2>{{ curso.name }}</h2>
     <h3>Categoria: {{ curso.slug }}</h3>
     <p>Descrição: {{ curso.short_description }}</p>
     <p>Mais sobre o curso: {{ curso.long_description }}</p>
 
     <!-- Exibir o link para o PDF -->
-    {% if curso.pdf %}
-        <p>
-            <a href="{{ curso.pdf.url }}" target="_blank">Download PDF</a>
-        </p>
+    {% if curso.arquivos.count > 0 %}
+    <p>Materiais Disponíveis:</p>
+    <ul>
+        {% for arquivo in curso.arquivos.all %}
+            <li><a href="{{ arquivo.pdf.url }}" target="_blank">{{ arquivo.title }}</a></li>
+        {% endfor %}
+    </ul>
     {% else %}
-        <p>PDF não disponível</p>
+    <p>Materiais não disponíveis</p>
     {% endif %}
-
     <!-- Exibir o link ou incorporar o vídeo -->
-    {% if curso.video_aula %}
-        <!-- Ou, para incorporar o vídeo -->
-        <iframe width="560" 
-        height="315" 
-        src="{{ curso.video_aula }}" 
-        frameborder="0" 
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" 
-        allowfullscreen></iframe>
-        <p> Disponível em:
-            <a href="{{ curso.video_aula }}" target="_blank">{{ curso.video_aula }}</a>
+    {% if curso.videos.exists %}
+    <p>Vídeos disponíveis:</p>
+    {% for video in curso.videos.all %}
+        <h5>
+            {{video.title}}
+        </h5>
+        <iframe width="560" height="315" 
+            src="{{ video.url }}" 
+            frameborder="0" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+            allowfullscreen></iframe>
+        <p>
+            Link: <a href="{{ video.url }}" target="_blank">{{ video.url }}</a>
         </p>
+    {% endfor %}
     {% else %}
         <p>Vídeo aula não disponível</p>
-    {% endif %}
+    {% endif %}   
+
 {% endfor %}
-            
     </div>
 
 

@@ -76,26 +76,13 @@ def custom_logout(request):
 
 @login_required
 def acessar(request):
-        cursos = Curso.objects.filter(aluno=request.user)
-    # Criar uma lista de dicionários com os valores ajustados
-        cursos_modificados = []
-        for curso in cursos:
-            video_aula_embed = curso.video_aula
-        # Substituir "watch?v=" por "embed/" para vídeos do YouTube
-        if "watch?v=" in video_aula_embed:
-            video_aula_embed = video_aula_embed.replace("watch?v=", "embed/")
-        
-        # Adicionar os dados modificados em uma lista
-        cursos_modificados.append({
-            'name': curso.name,
-            'slug': curso.slug,
-            'short_description': curso.short_description,
-            'long_description': curso.long_description,
-            'pdf': curso.pdf,
-            'video_aula': video_aula_embed
-        })
+    cursos = Curso.objects.filter(aluno=request.user).prefetch_related('videos', 'arquivos')
 
-        context = {
-        'cursos': cursos_modificados  # Enviar a lista modificada ao template
-        }
-        return render(request, 'acessar.html', context)
+    for curso in cursos:
+        for video in curso.videos.all():
+            if "watch?v=" in video.url:
+                video.url = video.url.replace("watch?v=", "embed/")
+
+    context = {'cursos': cursos}
+    return render(request, 'acessar.html', context)
+
