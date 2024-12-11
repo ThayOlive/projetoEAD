@@ -47,7 +47,14 @@
             <tbody>
                 {% for curso in cursos %}
                 <tr>
-                    <td>{{ curso.aluno }}</td>
+                    <td>
+                        {% for aluno in curso.aluno.all %}
+                            {% if aluno == user %}
+                                {{ aluno.get_username }}
+                            {% endif %}
+                        {% endfor %}
+                    </td>
+                    
                     <td>{{ curso.name }}</td>
                     <td>{{ curso.slug }}</td>  
                     <td>{{ curso.short_description }}</td> 

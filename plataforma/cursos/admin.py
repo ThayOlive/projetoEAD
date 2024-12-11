@@ -7,7 +7,7 @@ class CursoAdmin(admin.ModelAdmin):
     form = CursoAdminForm
     list_display = ['name', 'slug', 'short_description', 'long_description']
     search_fields = ['name', 'slug']
-    filter_horizontal = ('videos', 'arquivos')  # Não inclui 'arquivos' porque é gerenciado manualmente
+    filter_horizontal = ('videos', 'aluno') # Não inclui 'arquivos' porque é gerenciado manualmente
     fieldsets = (
         (None, {
             'fields': ('name', 'slug', 'short_description', 'long_description', 'arquivos_existentes', 'videos', 'aluno')

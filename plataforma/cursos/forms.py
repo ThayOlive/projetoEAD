@@ -16,14 +16,15 @@ class CursoAdminForm(forms.ModelForm):
         fields = '__all__'
 
     def save(self, commit=True):
-    # Salva o curso e associa os arquivos existentes selecionados
-        curso = super().save(commit=False)  # Salva o curso sem persistir no banco ainda
-        if commit:
-            curso.save()  # Salva o curso no banco de dados
+        curso = super().save(commit=False)
 
-        # Adiciona os arquivos selecionados ao ManyToManyField 'arquivos'
-        if 'arquivos_existentes' in self.cleaned_data:
-            # Combina os arquivos selecionados com os já associados
-            curso.arquivos.set(self.cleaned_data['arquivos_existentes'])
+    # Salve o curso primeiro para garantir que ele tenha um ID
+        if commit:
+            curso.save()  # Agora o curso tem um ID, pois foi salvo no banco de dados
+
+        # Após salvar o curso, associe os arquivos
+            if 'arquivos_existentes' in self.cleaned_data:
+                arquivos = self.cleaned_data['arquivos_existentes']
+                curso.arquivos.set(arquivos)  # Associe os arquivos ao curso
 
         return curso
