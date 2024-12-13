@@ -121,7 +121,7 @@ USE_I18N = True
 
 USE_TZ = True
 
-
+X_FRAME_OPTIONS = 'SAMEORIGIN'
 
 STATIC_URL = 'static/'
 MEDIA_URL = 'media/'
@@ -133,6 +133,4 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 AUTH_USER_MODEL = "users.CustomUser"
 
 
-#user adm : administracao 
-# passaword: thl4525
 

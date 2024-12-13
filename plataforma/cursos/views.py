@@ -5,22 +5,13 @@ from django.contrib.auth.decorators import login_required,  user_passes_test
 from django.contrib.auth import logout
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-
+from django.http import FileResponse, Http404, HttpResponse
 from django.views.decorators.http import require_POST
 from django.contrib import messages
 from django.http import JsonResponse
+import os
 
-from .models import Curso
-
-@login_required
-def administrador(request):
-    cursos = Curso.objects.all()
-    
-    context = {
-        
-        'cursos': cursos
-    }
-    return render(request, 'administrador.html', context)
+from .models import Curso, Material
 
 def login(request):
     if request.method == 'POST':
@@ -34,31 +25,6 @@ def login(request):
         form = AuthenticationForm()
     
     return render(request, 'login.html', {'form': form})
-
-
-
-@login_required
-def cadastrar_aluno(request):
-    if request.method == 'POST':
-        form = UserCreationForm(request.POST)
-        nome_completo = request.POST.get('nome_completo')
-        cod_aluno = request.POST.get('cod_aluno')
-        
-        if form.is_valid():
-            user = form.save()
-            user.first_name = nome_completo
-            user.last_name = cod_aluno
-            user.save()
-            
-
-            messages.success(request, 'Aluno cadastrado com sucesso e adicionado ao grupo Alunos!')
-            
-        else:
-            messages.error(request, 'Erro ao cadastrar aluno. Verifique os dados.')
-    else:
-        form = UserCreationForm()
-    
-    return render(request, 'cadastrar_aluno.html', {'form': form})
 
 @login_required
 def main (request):
@@ -86,3 +52,17 @@ def acessar(request):
     context = {'cursos': cursos}
     return render(request, 'acessar.html', context)
 
+login_required
+def visualizar_pdf(request, material_id):
+    try:
+        material = Material.objects.get(pk=material_id)
+        # Verifica se o arquivo existe
+        if not os.path.exists(material.pdf.path):
+            raise Http404("Arquivo PDF não encontrado.")
+        
+        with open(material.pdf.path, 'rb') as pdf_file:
+            response = HttpResponse(pdf_file.read(), content_type='application/pdf')
+            response['Content-Disposition'] = f'inline; filename="{material.title or "documento.pdf"}"'
+            return response
+    except Material.DoesNotExist:
+        raise Http404("Material não encontrado.")

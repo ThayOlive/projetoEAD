@@ -28,16 +28,13 @@ from django.urls import path
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('cadastrar_aluno/', views.cadastrar_aluno, name="cadastrar_aluno"),
     path('', views.login, name='login'),
     path('main/', views.main, name="main"),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('login/', views.login, name='login'),
-    path('administrador/', views.administrador, name='administrador'),
     path('acessar/', views.acessar, name="acessar"),
-
-
-]
+    path('visualizar-pdf/<int:material_id>/', views.visualizar_pdf, name='visualizar_pdf'),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 urlpatterns += [
     path('login/', include('django.contrib.auth.urls')),

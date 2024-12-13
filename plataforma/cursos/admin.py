@@ -15,7 +15,7 @@ class CursoAdmin(admin.ModelAdmin):
     )
 
 class MaterialAdmin(admin.ModelAdmin):
-    list_display = ['title', 'download_link']
+    list_display = ['title']
 
 
 # Registrando o modelo no admin

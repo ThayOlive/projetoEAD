@@ -4,6 +4,7 @@ from django.contrib.auth.models import User, AbstractUser
 from django.contrib.auth import get_user_model
 from django.dispatch import receiver
 from django.db.models.signals import post_save
+from django.urls import reverse
 
 class Video(models.Model):
     url = models.URLField("URL do vídeo")
@@ -18,14 +19,9 @@ class Material(models.Model):
 
     def __str__(self):
         return self.title or self.pdf
-
-    def download_link(self):
-        if self.pdf:
-            return f'<a href="{self.pdf.url}" target="_blank">Baixar</a>'
-        return "Arquivo não disponível"
-
-    download_link.short_description = "Download"
-    download_link.allow_tags = True
+    def get_absolute_url(self):
+         return reverse("visualizar_pdf", kwargs={"material_id": self.pk})
+    
 
 class Curso(models.Model):
     name = models.CharField(("Curso"), max_length=100)
@@ -52,8 +48,7 @@ class Curso(models.Model):
 
     def __str__(self):
         return self.name
-    #def get_absolute_url(self):
-      #  return reverse("_detail", kwargs={"pk": self.pk})
+    
 
         @receiver(post_save, sender= Curso)
         def associar_arquivos(sender, instance, created, **kwargs):
