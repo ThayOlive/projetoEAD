@@ -1,7 +1,9 @@
 asgiref==3.8.1
 crispy-bootstrap4==2024.1
-Django==4.0.6
+Django==4.2.16
 django-crispy-forms==2.1
+gunicorn==22.0.0
+packaging==24.2
 sqlparse==0.5.1
 typing_extensions==4.12.2
 tzdata==2024.1
