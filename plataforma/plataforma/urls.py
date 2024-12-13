@@ -32,7 +32,7 @@ urlpatterns = [
     path('main/', views.main, name="main"),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('login/', views.login, name='login'),
-    path('acessar/', views.acessar, name="acessar"),
+    path('acessar/<int:curso_id>/', views.acessar, name="acessar"),
     path('visualizar-pdf/<int:material_id>/', views.visualizar_pdf, name='visualizar_pdf'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

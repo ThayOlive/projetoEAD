@@ -40,16 +40,21 @@ def custom_logout(request):
     logout(request)
     return render('login.html')  # Redireciona para a página de login (login.html)
 
+
 @login_required
-def acessar(request):
-    cursos = Curso.objects.filter(aluno=request.user).prefetch_related('videos', 'arquivos')
-
-    for curso in cursos:
-        for video in curso.videos.all():
-            if "watch?v=" in video.url:
-                video.url = video.url.replace("watch?v=", "embed/")
-
-    context = {'cursos': cursos}
+def acessar(request, curso_id):
+    # Filtra o curso específico que o usuário tem permissão para acessar
+    try:
+        curso = Curso.objects.get(id=curso_id, aluno=request.user)  # Garante que o curso pertence ao aluno
+    except Curso.DoesNotExist:
+        # Se o curso não for encontrado ou o usuário não for aluno desse curso, retorna uma resposta de erro
+        return HttpResponse("Curso não encontrado ou você não tem acesso a este curso", status=404)
+    
+    # Pré-carrega os vídeos e materiais do curso
+    curso.videos.all()  # Carrega os vídeos
+    curso.arquivos.all()  # Carrega os arquivos
+    
+    context = {'curso': curso}
     return render(request, 'acessar.html', context)
 
 login_required
