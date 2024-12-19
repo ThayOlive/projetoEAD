@@ -41,3 +41,7 @@ urlpatterns += [
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+admin.AdminSite.site_header= "Painel Administrativo"
+admin.AdminSite.site_title = "Painel Administrativo"
+admin.AdminSite.index_title = "Administração"

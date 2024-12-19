@@ -2,6 +2,8 @@
 from django.contrib import admin
 from .models import Curso, Video, Material
 from .forms import CursoAdminForm
+from django.contrib.auth.models import Group
+
 
 class CursoAdmin(admin.ModelAdmin):
     form = CursoAdminForm  # Use o formulário personalizado
@@ -18,6 +20,7 @@ class CursoAdmin(admin.ModelAdmin):
 admin.site.register(Curso, CursoAdmin)
 admin.site.register(Video)
 admin.site.register(Material)
+admin.site.unregister(Group)
 
 
 

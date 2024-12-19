@@ -4,6 +4,10 @@ Django==4.2.16
 django-crispy-forms==2.1
 gunicorn==22.0.0
 packaging==24.2
+psycopg2-binary==2.9.10
+python-decouple==3.8
 sqlparse==0.5.1
+static3==0.7.0
 typing_extensions==4.12.2
 tzdata==2024.1
+whitenoise==6.8.2

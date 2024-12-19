@@ -10,8 +10,10 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
+
 import os
 from pathlib import Path
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,16 +23,21 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-fyrd%&kfb6%(w!5=+c3!svee&7s3*dl%d^ghw#_-f4thubxv0t'
-
-
+SECRET_KEY =config("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config("DEBUG", cast=bool, default = False)
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['thayla.pythonanywhere.com', '127.0.0.1']
 
-CSRF_TRUSTED_ORIGINS=['http://127.0.0.1:8000/']
+CSRF_TRUSTED_ORIGINS = ['http://127.0.0.1:8000', 'https://thayla.pythonanywhere.com']
+
+#configurações de segurança para produção
+#SECURE_BROWSER_XSS_FILTER = True
+
+#SECURE_CONTENT_TYPE_NOSNIFF = True
+
+##SECURE_SSL_REDIRECT = True
 
 
 INSTALLED_APPS = [
@@ -47,6 +54,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -55,6 +63,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 ROOT_URLCONF = 'plataforma.urls'
 
@@ -84,13 +94,17 @@ WSGI_APPLICATION = 'plataforma.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': config("DB_NAME"),  # Defina em seu arquivo .env ou no PythonAnywhere
+        'USER': config("DB_USER"),
+        'PASSWORD': config("DB_PASSWORD"),
+        'HOST': config("DB_HOST"),  # Banco remoto
+        'PORT': config("DB_PORT", default=5432),
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
@@ -110,7 +124,25 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
+#Configuração para captura de erros
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': 'ERROR',
+            'class': 'logging.FileHandler',
+            'filename': os.path.join(BASE_DIR, 'error.log'),
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['file'],
+            'level': 'ERROR',
+            'propagate': True,
+        },
+    },
+}
 
 
 LANGUAGE_CODE = 'pt-br'
