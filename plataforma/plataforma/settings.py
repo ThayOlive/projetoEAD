@@ -33,11 +33,11 @@ ALLOWED_HOSTS = ['thayla.pythonanywhere.com', '127.0.0.1']
 CSRF_TRUSTED_ORIGINS = ['http://127.0.0.1:8000', 'https://thayla.pythonanywhere.com']
 
 #configurações de segurança para produção
-#SECURE_BROWSER_XSS_FILTER = True
+SECURE_BROWSER_XSS_FILTER = True
 
-#SECURE_CONTENT_TYPE_NOSNIFF = True
+SECURE_CONTENT_TYPE_NOSNIFF = True
 
-##SECURE_SSL_REDIRECT = True
+SECURE_SSL_REDIRECT = True
 
 
 INSTALLED_APPS = [
@@ -95,27 +95,18 @@ WSGI_APPLICATION = 'plataforma.wsgi.application'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 
-#DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.db.backends.postgresql',
-#        'NAME': config("DB_NAME"),  # Defina em seu arquivo .env ou no PythonAnywhere
-#        'USER': config("DB_USER"),
-#        'PASSWORD': config("DB_PASSWORD"),
-#        'HOST': config("DB_HOST"),  # Banco remoto
-#        'PORT': config("DB_PORT", default=5432),
-#    }
-#}
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'plataforma_app',  
-        'USER': 'postgres',
-        'PASSWORD': 'visor4532',
-        'HOST': 'localhost',
-        'PORT': 5432,
+        'NAME': config("DB_NAME"),  # Defina em seu arquivo .env ou no PythonAnywhere
+        'USER': config("DB_USER"),
+        'PASSWORD': config("DB_PASSWORD"),
+        'HOST': config("DB_HOST"),  # Banco remoto
+        'PORT': config("DB_PORT"),
     }
 }
+
+
 
 
 # Password validation
