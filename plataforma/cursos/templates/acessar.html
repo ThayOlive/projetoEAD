@@ -32,8 +32,11 @@
     </nav>
 
     <div class= "container text-bg-light p-3">
-        
-    <h2>{{ curso.name }}</h2>
+        <div class="d-flex justify-content-between align-items-center">
+            <h2>{{ curso.name }}</h2>
+            <a class="btn btn-sm" style="background-color: #ffa64d;" aria-current="page" href="{% url 'main' %}">Cursos</a>
+        </div>
+    
     <h3>Categoria: {{ curso.slug }}</h3>
     <p>Descrição: {{ curso.short_description }}</p>
     <p>Mais sobre o curso: {{ curso.long_description }}</p>

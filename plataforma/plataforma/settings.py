@@ -33,11 +33,11 @@ ALLOWED_HOSTS = ['thayla.pythonanywhere.com', '127.0.0.1']
 CSRF_TRUSTED_ORIGINS = ['http://127.0.0.1:8000', 'https://thayla.pythonanywhere.com']
 
 #configurações de segurança para produção
-SECURE_BROWSER_XSS_FILTER = True
+#SECURE_BROWSER_XSS_FILTER = True
 
-SECURE_CONTENT_TYPE_NOSNIFF = True
+#SECURE_CONTENT_TYPE_NOSNIFF = True
 
-SECURE_SSL_REDIRECT = True
+SECURE_SSL_REDIRECT = False
 
 
 INSTALLED_APPS = [
