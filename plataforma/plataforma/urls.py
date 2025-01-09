@@ -34,6 +34,7 @@ urlpatterns = [
     path('login/', views.login, name='login'),
     path('acessar/<int:curso_id>/', views.acessar, name="acessar"),
     path('visualizar-pdf/<int:material_id>/', views.visualizar_pdf, name='visualizar_pdf'),
+    path('marcar-assistido/<int:video_id>/', views.marcar_assistido, name='marcar_assistido'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 urlpatterns += [

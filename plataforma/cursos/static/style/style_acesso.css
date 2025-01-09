@@ -63,4 +63,29 @@ body {
     border-radius: 5px;
   }
 
-  
+ /* Estilo para a barra de progresso */
+progress {
+  -webkit-appearance: none; /* Remove o estilo padrão */
+  appearance: none; /* Remove o estilo padrão */
+  width: 100%; /* Largura total */
+  height: 20px; /* Altura personalizada */
+  background-color: #f3f3f3; /* Cor de fundo */
+  border-radius: 5px; /* Cantos arredondados */
+  overflow: hidden;
+}
+
+progress::-webkit-progress-bar {
+  background-color: #f3f3f3; /* Fundo da barra */
+  border-radius: 5px; /* Cantos arredondados */
+}
+
+progress::-webkit-progress-value {
+  background-color: #007bff; /* Cor azul do progresso */
+  border-radius: 5px; /* Cantos arredondados */
+}
+
+progress::-moz-progress-bar {
+  background-color: #007bff; /* Cor azul do progresso */
+  border-radius: 5px; /* Cantos arredondados */
+}
+

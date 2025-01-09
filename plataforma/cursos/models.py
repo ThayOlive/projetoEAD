@@ -51,7 +51,19 @@ class Curso(models.Model):
 
     def __str__(self):
         return self.name
+    
 
+class Progresso(models.Model):
+    aluno = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='progresso')
+    curso = models.ForeignKey(Curso, on_delete=models.CASCADE, related_name='progresso')
+    video = models.ForeignKey(Video, on_delete=models.CASCADE, related_name='progresso')
+    assistido = models.BooleanField(default=False)
+
+    class Meta:
+        unique_together = ('aluno', 'curso', 'video')  # Garante que não existam duplicatas
+
+    def __str__(self):
+        return f"{self.aluno} - {self.curso} - {self.video} - Assistido: {self.assistido}"
 
 # Corrigindo a indentação do receiver
 @receiver(post_save, sender=Curso)

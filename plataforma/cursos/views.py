@@ -10,8 +10,8 @@ from django.views.decorators.http import require_POST
 from django.contrib import messages
 from django.http import JsonResponse
 import os
-
-from .models import Curso, Material
+from .models import Curso, Material, Progresso, Video
+from django.views.decorators.csrf import csrf_exempt
 
 def login(request):
     if request.method == 'POST':
@@ -43,19 +43,29 @@ def custom_logout(request):
 
 @login_required
 def acessar(request, curso_id):
-    # Filtra o curso específico que o usuário tem permissão para acessar
     try:
-        curso = Curso.objects.get(id=curso_id, aluno=request.user)  # Garante que o curso pertence ao aluno
+        curso = Curso.objects.get(id=curso_id, aluno=request.user)
     except Curso.DoesNotExist:
-        # Se o curso não for encontrado ou o usuário não for aluno desse curso, retorna uma resposta de erro
         return HttpResponse("Curso não encontrado ou você não tem acesso a este curso", status=404)
+
+    total_videos = curso.videos.count()
+    total_assistidos = Progresso.objects.filter(curso=curso, aluno=request.user, assistido=True).count()
+    progresso_percentual = (total_assistidos / total_videos) * 100 if total_videos > 0 else 0
+
+    videos_assistidos = Progresso.objects.filter(curso=curso, aluno=request.user, assistido=True).values_list('video_id', flat=True)
+
+    context = {
+        'curso': curso,
+        'progresso_percentual': progresso_percentual,
+        'total_videos': total_videos,
+        'total_assistidos': total_assistidos,
+        'videos_assistidos': videos_assistidos,
+    }
     
-    # Pré-carrega os vídeos e materiais do curso
-    curso.videos.all()  # Carrega os vídeos
-    curso.arquivos.all()  # Carrega os arquivos
-    
-    context = {'curso': curso}
     return render(request, 'acessar.html', context)
+
+    
+
 
 login_required
 def visualizar_pdf(request, material_id):
@@ -71,3 +81,52 @@ def visualizar_pdf(request, material_id):
             return response
     except Material.DoesNotExist:
         raise Http404("Material não encontrado.")
+
+
+@login_required
+def marcar_assistido(request, video_id):
+    video = get_object_or_404(Video, id=video_id)
+    curso = video.cursos.first()  # Considerando que o vídeo pertence a apenas um curso
+    if curso and request.user in curso.aluno.all():
+        progresso, created = Progresso.objects.get_or_create(
+            aluno=request.user,
+            curso=curso,
+            video=video
+        )
+        
+        # Alterna o status de assistido
+        progresso.assistido = not progresso.assistido  # Alterna entre True/False
+        progresso.save()
+        
+        if progresso.assistido:
+            return JsonResponse({'success': True, 'message': 'Vídeo marcado como assistido.'})
+        else:
+            return JsonResponse({'success': True, 'message': 'Vídeo desmarcado como assistido.'})
+    
+    return JsonResponse({'success': False, 'message': 'Permissão negada.'})
+
+def progresso(request, curso_id):
+   def progresso(request, curso_id):
+    curso = Curso.objects.get(id=curso_id)
+    
+    # Calculando o número total de vídeos e os vídeos assistidos
+    total_videos = curso.videos.count()
+    total_assistidos = curso.progresso.filter(aluno=request.user, assistido=True).count()
+    
+    # Calculando a porcentagem de vídeos assistidos
+    progresso_percentual = 0
+    if total_videos > 0:
+       progresso_percentual = (total_assistidos / total_videos) * 100
+       progresso_percentual = round(progresso_percentual, 2)  # Arredonda para 2 casas decimais
+       progresso_percentual = min(max(progresso_percentual, 0), 100)  # Garante o intervalo [0, 100]
+
+    
+    # Passando esses dados para o template
+    context = {
+        'curso': curso,
+        'total_videos': total_videos,
+        'total_assistidos': total_assistidos,
+        'progresso_percentual': progresso_percentual,
+        
+    }
+    return render(request, 'cursos/acessar.html', context)
