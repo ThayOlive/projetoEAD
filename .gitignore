@@ -133,3 +133,4 @@ cython_debug/
 
 error.log
 
+staticfiles/
