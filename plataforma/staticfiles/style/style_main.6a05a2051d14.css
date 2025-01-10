@@ -1,0 +1,94 @@
+ /* Fundo da página */
+ body {
+    background: linear-gradient(to right, #f7f7f7, #ffffff);
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Barra de navegação */
+  .navbar {
+    background-color: #f68b1e;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .navbar .nav-link {
+    color: #ffffff !important;
+    font-weight: bold;
+    margin-right: 15px;
+  }
+
+  .navbar .nav-link:hover {
+    color: #ffc107 !important;
+    transition: color 0.3s;
+  }
+
+  /* Cabeçalho */
+  h2 {
+    text-align: center;
+    color: #f68b1e;
+    font-weight: bold;
+    margin-top: 20px;
+  }
+
+  /* Tabela */
+  .table {
+    border-collapse: collapse;
+    margin: 20px auto;
+    width: 100%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  .table th {
+    background-color: #f68b1e;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+    padding: 15px;
+    border-bottom: 2px solid #e0e0e0;
+  }
+
+  .table td {
+    text-align: center;
+    padding: 15px;
+    border-bottom: 1px solid #e0e0e0;
+  }
+
+  .table tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+
+  .table tr:hover {
+    background-color: #ffe6cc;
+  }
+
+  /* Botões */
+  .btn-info {
+    background: linear-gradient(to right, #f68b1e, #ffb84d);
+    border: none;
+    color: white;
+    font-weight: bold;
+    border-radius: 20px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    padding: 5px 2px;
+  }
+
+  .btn-info:hover {
+    background: linear-gradient(to right, #ffb84d, #f68b1e);
+    transform: scale(1.05);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  }
+
+  /* Responsividade */
+  @media (max-width: 768px) {
+    .table {
+      font-size: 0.9em;
+    }
+
+    .navbar {
+      padding: 10px;
+    }
+  }

@@ -11,7 +11,7 @@ from django.contrib import messages
 from django.http import JsonResponse
 import os
 from .models import Curso, Material, Progresso, Video
-from django.views.decorators.csrf import csrf_exempt
+
 
 def login(request):
     if request.method == 'POST':
@@ -63,8 +63,6 @@ def acessar(request, curso_id):
     }
     
     return render(request, 'acessar.html', context)
-
-    
 
 
 login_required

@@ -1,0 +1,91 @@
+/* Estilo para o fundo da página */
+body {
+    background-color: #fdf6e3; /* Fundo pastel */
+    font-family: Arial, sans-serif;
+  }
+
+  /* Estilo para a barra de navegação */
+  .navbar {
+    background-color: #ff914d;
+  }
+
+  .navbar .nav-link {
+    color: white !important;
+  }
+
+  /* Estilo para o container principal */
+  .container {
+    margin-top: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-left: 10px solid #ffa64d; /* Lateral temática */
+  }
+
+  /* Estilo para o título principal */
+  h2 {
+    color: #ff914d;
+    font-weight: bold;
+  }
+
+  /* Estilo para os botões do acordeão */
+  .accordion-button {
+    background-color: #ffa64d;
+    color: white;
+    font-weight: bold;
+    border: none;
+  }
+
+  .accordion-button:hover {
+    background-color: #ff7a1c;
+  }
+
+  /* Estilo para o corpo do acordeão */
+  .accordion-body {
+    background-color: #fff2e6;
+    color: #333;
+  }
+
+  /* Estilo para os links */
+  a {
+    color: #ff914d;
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  /* Estilo para os iframes */
+  iframe {
+    border: 2px solid #ffa64d;
+    border-radius: 5px;
+  }
+
+ /* Estilo para a barra de progresso */
+progress {
+  -webkit-appearance: none; /* Remove o estilo padrão */
+  appearance: none; /* Remove o estilo padrão */
+  width: 100%; /* Largura total */
+  height: 20px; /* Altura personalizada */
+  background-color: #f3f3f3; /* Cor de fundo */
+  border-radius: 5px; /* Cantos arredondados */
+  overflow: hidden;
+}
+
+progress::-webkit-progress-bar {
+  background-color: #f3f3f3; /* Fundo da barra */
+  border-radius: 5px; /* Cantos arredondados */
+}
+
+progress::-webkit-progress-value {
+  background-color: #007bff; /* Cor azul do progresso */
+  border-radius: 5px; /* Cantos arredondados */
+}
+
+progress::-moz-progress-bar {
+  background-color: #007bff; /* Cor azul do progresso */
+  border-radius: 5px; /* Cantos arredondados */
+}
+

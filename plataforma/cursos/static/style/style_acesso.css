@@ -80,12 +80,12 @@ progress::-webkit-progress-bar {
 }
 
 progress::-webkit-progress-value {
-  background-color: #007bff; /* Cor azul do progresso */
+  background-color: #ffa64d;/* Cor azul do progresso */
   border-radius: 5px; /* Cantos arredondados */
 }
 
 progress::-moz-progress-bar {
-  background-color: #007bff; /* Cor azul do progresso */
+  background-color: #ffa64d; /* Cor azul do progresso */
   border-radius: 5px; /* Cantos arredondados */
 }
 
