@@ -6,12 +6,21 @@
     <title>Home</title>
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href= {% static 'style/style_acesso.css' %}>
+    <link rel="stylesheet" href= "{% static 'style/style_acesso.css' %}"">
     
 
   </head>
   <body>
     <style>
+    progress {
+            -webkit-appearance: none; /* Remove o estilo padrão */
+            appearance: none; /* Remove o estilo padrão */
+            width: 100%; /* Largura total */
+            height: 20px; /* Altura personalizada */
+            background-color: #f3f3f3; /* Cor de fundo */
+            border-radius: 5px; /* Cantos arredondados */
+            overflow: hidden;
+          }
 
     progress::-webkit-progress-bar {
         background-color: #ddd; /* Cor do fundo da barra */
@@ -19,6 +28,18 @@
 
     progress::-webkit-progress-value {
         background-color: #ffa64d; /* Cor do preenchimento (laranja) */
+    }
+
+    .video-link {
+        word-wrap: break-word; /* Quebra a linha caso o texto seja muito longo */
+        overflow-wrap: break-word; /* Compatibilidade extra */
+        display: inline-block; /* Respeita a largura do contêiner */
+        max-width: 100%; /* Garante que o link não ultrapasse o contêiner */
+        color: #ff914d; /* Cor do link */
+    }
+    
+    .video-link:hover {
+        text-decoration: underline; /* Destaque ao passar o mouse */
     }
 </style>
     <nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark" >
@@ -61,7 +82,7 @@
       Progresso: {{ total_assistidos|floatformat:0 }} de {{ total_videos }} / ({{ progresso_percentual|floatformat:0 }}%)
     </div>
 </div>
-    <progress style="width: 400px; height: 20px;" max="100" value="{{progresso_percentual|floatformat:0}}">
+    <progress style="width: 100%; height: 20px;" max="100" value="{{progresso_percentual|floatformat:0}}">
     </progress>
 {% endwith %}
 
@@ -110,15 +131,17 @@
                 </h2>
                 <div id="collapseVideo{{ forloop.counter }}" class="accordion-collapse collapse" aria-labelledby="headingVideo{{ forloop.counter }}">
                     <div class="accordion-body">
-                        <iframe width="560" height="315" 
+                        <iframe width="100%"
+                                height="600"
                                 src="{{ video.url }}" 
                                 frameborder="0" 
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                                 allowfullscreen>
                         </iframe>
                         <p>
-                            Link: <a href="{{ video.url }}" target="_blank">{{ video.url }}</a>
+                            Link: <a class="video-link" href="{{ video.url }}" target="_blank">{{ video.url }}</a>
                         </p>
+                        
                         <p>
                             {% if video.id in videos_assistidos %}
                             <button class="btn btn-danger marcar-assistido" data-video-id="{{ video.id }}">Desmarcar como assistido</button>

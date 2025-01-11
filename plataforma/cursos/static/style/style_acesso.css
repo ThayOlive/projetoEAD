@@ -49,6 +49,7 @@ body {
 
   /* Estilo para os links */
   a {
+    
     color: #ff914d;
     text-decoration: none;
   }
@@ -62,6 +63,8 @@ body {
     border: 2px solid #ffa64d;
     border-radius: 5px;
   }
+
+  
 
  /* Estilo para a barra de progresso */
 progress {
