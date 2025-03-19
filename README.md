@@ -6,24 +6,24 @@ se o dono do canal compartilhar o link. Futuramente, pretendo incluir uma API do
 conta com sistema de autenticação
 e foi usado a página de administração do próprio Django para cadastro de cursos, inserção de videos e materias, e cadastro de usuários alunos. 
 
-This project was developed with the objective of facilitating the availability of courses for a company, through of unlisted Youtube video links, which are only acessible if the channel owner 
+(English: This project was developed with the objective of facilitating the availability of courses for a company, through of unlisted Youtube video links, which are only acessible if the channel owner 
 shares the link. In the future, I intent include a Youtube API to insert private videos. The project has a responsive and friendly interface, also include an authentication system
-and was used the page of administration of Django for course registration, video and material insertion, and student user management.
+and was used the page of administration of Django for course registration, video and material insertion, and student user management.)
 
 Tecnologias utilizadas: Python, Django Framework, Banco de Dados PostgreSQL, Bootstrap, HTML e CSS. 
-Tools used: Python, Django Framework, Banco de Dados PostgreSQL, Bootstrap, HTML e CSS. 
+(Tools used: Python, Django Framework, Banco de Dados PostgreSQL, Bootstrap, HTML e CSS. )
 
 Fique a vontade para usar e dar sugestões de melhorias! 
-Feel free to use it and to give suggest for improvements!
+(Feel free to use it and to give suggest for improvements!)
 
  1º PASSO (1st STEP)
  Clone o repositório com:
  git clone <url do respositorio>
- Clone the repository with:
- git clone <repository url> 
+ (Clone the repository with:
+ git clone <repository url> )
  
  No console, rode:
- In the console, run:
+ (In the console, run:)
  
  2º PASSO (2nd STEP)
  'python -m virtualenv venv' 
