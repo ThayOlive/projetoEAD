@@ -10,8 +10,8 @@ e foi usado a página de administração do próprio Django para cadastro de cur
 shares the link. In the future, I intent include a Youtube API to insert private videos. The project has a responsive and friendly interface, also include an authentication system
 and was used the page of administration of Django for course registration, video and material insertion, and student user management.)
 
-Tecnologias utilizadas: Python, Django Framework, Banco de Dados PostgreSQL, Bootstrap, HTML e CSS. 
-(Tools used: Python, Django Framework, Banco de Dados PostgreSQL, Bootstrap, HTML e CSS. )
+Tecnologias utilizadas (Tools used): Python, Django Framework, Banco de Dados PostgreSQL, Bootstrap, HTML e CSS. 
+
 
 Fique a vontade para usar e dar sugestões de melhorias! 
 (Feel free to use it and to give suggest for improvements!)
