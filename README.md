@@ -18,9 +18,9 @@ Fique a vontade para usar e dar sugestões de melhorias!
 
  1º PASSO (1st STEP)
  Clone o repositório com:
- git clone <url do respositorio>
+ git clone + url do respositorio
  (Clone the repository with:
- git clone <repository url> )
+ git clone + repository url )
  
  No console, rode:
  (In the console, run:)
@@ -30,29 +30,29 @@ Fique a vontade para usar e dar sugestões de melhorias!
 
  3º PASSO (3rd STEP)
  ative o ambiente virtual:
- activate the virtual envoirement:
+ (activate the virtual envoirement:)
  
  'venv\scripts\activate'
 
  4º PASSO (4th STEP)
  instale as bibliotecas:
- install the required libraries:
+ (install the required libraries:)
  
  'pip install -r requirements.txt'
 
  5º PASSO (5th STEP)
  No terminal acesse o diretorio da aplicação:
- In the console, navigate to the application directory:
+ (In the console, navigate to the application directory:)
  
  'cd plataforma'
  
  rode as migrações no seu banco de dados local:
- Run the migrations on your local database:
+ (Run the migrations on your local database:)
  
  'python manage.py migrate'
 
  Por último inicie o servidor:
- Finally, start the server:
+ (Finally, start the server:)
  
  'python manage.py runserver'
  
